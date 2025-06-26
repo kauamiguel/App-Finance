@@ -9,5 +9,4 @@ struct UserModel{
     var name : String?
     var expenses : Double?
     var earnings : Double?
-    var categories : [String]?
 }
