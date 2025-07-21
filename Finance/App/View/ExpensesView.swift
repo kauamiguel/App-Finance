@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct ExpensesView : View {
-    @State private var spentValue : String = ""
-    @State private var note : String = ""
     var dataColumns : [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -29,7 +27,7 @@ struct ExpensesView : View {
                         .foregroundColor(.gray)
                         .padding(.leading, 12)
                     
-                    TextField("0,00", text: $spentValue)
+                    TextField("0,00", text: $expensesViewModel.spentValue)
                         .frame(height: 50)
                         .keyboardType(.decimalPad)
                         .padding(.vertical, 12)
@@ -44,13 +42,13 @@ struct ExpensesView : View {
                 .frame(height: 50)
                 .padding(.horizontal)
                 
-                Spacer()
+                
                 
                 Text("Categorias")
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                LazyVGrid(columns: dataColumns) {
+                LazyVGrid(columns: dataColumns, spacing: 16) {
                     ForEach(expensesViewModel.getDefaultCategories(), id: \.id) { expense in
                         Button {
                             
@@ -59,15 +57,13 @@ struct ExpensesView : View {
                         }
                     }
                 }
-                
-                
-                Spacer()
+                .buttonStyle(.plain)
                 
                 Text("Note (Optional)")
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                TextEditor(text: $note)
+                TextEditor(text: $expensesViewModel.note)
                     .padding(12)
                     .frame(height: 120)
                     .background(
@@ -78,11 +74,10 @@ struct ExpensesView : View {
                     .font(.system(size: 16))
                     .foregroundStyle(.primary)
                 
-                
                 Spacer()
                 
                 Button {
-                    
+                    // MARK: Add expensive on core data and how on categorie view
                 } label: {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(height: 60)
@@ -93,12 +88,12 @@ struct ExpensesView : View {
                                 .font(.system(size: 20))
                                 .bold()
                         }
-                    
                 }
-                
-                
             }
         }
+        .onAppear(perform: {
+            UIScrollView.appearance().delaysContentTouches = false
+        })
     }
 }
 

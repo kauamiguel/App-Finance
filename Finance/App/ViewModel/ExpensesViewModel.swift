@@ -9,6 +9,8 @@ import SwiftUI
 
 class ExpensesViewModel : ObservableObject{
     @Published var categories : [Category?] = []
+    @Published var spentValue : String = ""
+    @Published var note : String = ""
     
     init(){}
     

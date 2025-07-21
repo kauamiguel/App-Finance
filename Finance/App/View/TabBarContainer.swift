@@ -37,7 +37,6 @@ struct TabBarContainer: View {
             }, label: {
                 Image(systemName: "plus.circle.fill")
             }))
-            .padding()
         }
     }
 }
