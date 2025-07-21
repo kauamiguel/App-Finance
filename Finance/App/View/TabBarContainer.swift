@@ -7,22 +7,21 @@
 
 import SwiftUI
 
-struct TabBar: View {
-    
+struct TabBarContainer: View {
     var body: some View {
         NavigationStack {
             TabView {
-                Expenses()
+                ExpensesView(expensesViewModel: ExpensesViewModel())
                     .tabItem {
                         Label("Expenses", systemImage: "plus.circle.fill")
                     }
                 
-                Categories()
+                CategoriesView()
                     .tabItem {
                         Label("Categories", systemImage: "tag.fill")
                     }
                 
-                Dashboards()
+                DashboardsView()
                     .tabItem {
                         Label("Dashboards", systemImage: "chart.pie.fill")
                     }
@@ -38,11 +37,10 @@ struct TabBar: View {
             }, label: {
                 Image(systemName: "plus.circle.fill")
             }))
-            .padding()
         }
     }
 }
 
 #Preview {
-    TabBar()
+    TabBarContainer()
 }
