@@ -8,23 +8,42 @@
 import SwiftUI
 
 class ExpensesViewModel : ObservableObject{
-    @Published var categories : [Category?] = []
-    @Published var spentValue : String = ""
+    @Published var expenseAmount : String = ""
     @Published var note : String = ""
+    @Published var name : String = ""
+    private var expenseRepository : ExpenseRepository = ExpenseRepository()
     
-    init(){}
+    init() {}
     
-    public func getCategoriesImageName() -> [String?]{
-        var categoriesImageNames : [String?] = []
-        
-        for category in categories{
-            categoriesImageNames.append(category?.imageName)
+    public func getAllExpenseCategories() -> [CategoryExpense] {
+        return getDefaultCategories() + getCustomCategories()
+    }
+    
+    private func getDefaultCategories() -> [CategoryExpense] {
+        return CategoryExpense.defaultCategories
+    }
+    
+    private func getCustomCategories() -> [CategoryExpense] {
+        do {
+            return try expenseRepository.fetchCategories()
+        }catch{
+            return []
         }
-        
-        return categoriesImageNames
     }
     
-    public func getDefaultCategories() -> [Category]{
-        return Category.defaultCategories
+    public func addCategoryExpense() {
+        expenseRepository.addExpense(to: self.name, amount: formatAndReturnExpenseAmount())
+        clearViewData()
     }
+    
+    private func formatAndReturnExpenseAmount() -> Double {
+        return Double(self.expenseAmount.replacingOccurrences(of: ",", with: ".")) ?? 0.0
+    }
+    
+    private func clearViewData(){
+        self.expenseAmount = ""
+        self.name = ""
+        self.note = ""
+    }
+    
 }

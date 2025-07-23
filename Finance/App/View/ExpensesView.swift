@@ -27,7 +27,7 @@ struct ExpensesView : View {
                         .foregroundColor(.gray)
                         .padding(.leading, 12)
                     
-                    TextField("0,00", text: $expensesViewModel.spentValue)
+                    TextField("0,00", text: $expensesViewModel.expenseAmount)
                         .frame(height: 50)
                         .keyboardType(.decimalPad)
                         .padding(.vertical, 12)
@@ -49,9 +49,9 @@ struct ExpensesView : View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 LazyVGrid(columns: dataColumns, spacing: 16) {
-                    ForEach(expensesViewModel.getDefaultCategories(), id: \.id) { expense in
+                    ForEach(expensesViewModel.getAllExpenseCategories(), id: \.id) { expense in
                         Button {
-                            
+                            expensesViewModel.name = expense.name
                         } label: {
                             CategoryButton(categoryImageName: expense.imageName, categoryName: expense.name)
                         }
@@ -77,7 +77,7 @@ struct ExpensesView : View {
                 Spacer()
                 
                 Button {
-                    // MARK: Add expensive on core data and how on categorie view
+                    expensesViewModel.addCategoryExpense()
                 } label: {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(height: 60)
