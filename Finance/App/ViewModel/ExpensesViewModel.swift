@@ -12,27 +12,23 @@ class ExpensesViewModel : ObservableObject{
     @Published var note : String = ""
     @Published var name : String = ""
     private var expenseRepository : ExpenseRepository = ExpenseRepository()
+    private var categoryRepository : CategoryRepository = CategoryRepository()
     
     init() {}
     
-    public func getAllExpenseCategories() -> [CategoryExpense] {
-        return getDefaultCategories() + getCustomCategories()
-    }
-    
-    private func getDefaultCategories() -> [CategoryExpense] {
-        return CategoryExpense.defaultCategories
-    }
-    
-    private func getCustomCategories() -> [CategoryExpense] {
+    public func fetchAllCategories() -> [Category] {
         do {
-            return try expenseRepository.fetchCategories()
-        }catch{
+            return try categoryRepository.fetchAllCategories()
+        }catch(let error){
+            print("Unable to fetch all categories: \(error.localizedDescription)")
             return []
         }
     }
     
-    public func addCategoryExpense() {
-        expenseRepository.addExpense(to: self.name, amount: formatAndReturnExpenseAmount())
+    public func addExpenseToCategory() {
+        let expenseModel = Expense(note: self.note, amount: formatAndReturnExpenseAmount())
+        let expenseEntity = expenseRepository.createExpenseEntity(expense: expenseModel)
+        categoryRepository.addExpense(to: self.name, expense: expenseEntity)
         clearViewData()
     }
     

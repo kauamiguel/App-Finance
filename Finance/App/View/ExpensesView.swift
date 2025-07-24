@@ -13,7 +13,7 @@ struct ExpensesView : View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    @ObservedObject var expensesViewModel : ExpensesViewModel
+    @StateObject var expensesViewModel : ExpensesViewModel
     
     var body: some View {
         ScrollView {
@@ -49,11 +49,11 @@ struct ExpensesView : View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 LazyVGrid(columns: dataColumns, spacing: 16) {
-                    ForEach(expensesViewModel.getAllExpenseCategories(), id: \.id) { expense in
+                    ForEach(expensesViewModel.fetchAllCategories(), id: \.id) { category in
                         Button {
-                            expensesViewModel.name = expense.name
+                            expensesViewModel.name = category.name
                         } label: {
-                            CategoryButton(categoryImageName: expense.imageName, categoryName: expense.name)
+                            CategoryButton(categoryImageName: category.imageUrl, categoryName: category.name)
                         }
                     }
                 }
@@ -77,7 +77,7 @@ struct ExpensesView : View {
                 Spacer()
                 
                 Button {
-                    expensesViewModel.addCategoryExpense()
+                    expensesViewModel.addExpenseToCategory()
                 } label: {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(height: 60)
