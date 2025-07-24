@@ -13,7 +13,7 @@ struct ExpensesView : View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    @ObservedObject var expensesViewModel : ExpensesViewModel
+    @StateObject var expensesViewModel : ExpensesViewModel
     
     var body: some View {
         ScrollView {
@@ -27,7 +27,7 @@ struct ExpensesView : View {
                         .foregroundColor(.gray)
                         .padding(.leading, 12)
                     
-                    TextField("0,00", text: $expensesViewModel.spentValue)
+                    TextField("0,00", text: $expensesViewModel.expenseAmount)
                         .frame(height: 50)
                         .keyboardType(.decimalPad)
                         .padding(.vertical, 12)
@@ -49,11 +49,11 @@ struct ExpensesView : View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 LazyVGrid(columns: dataColumns, spacing: 16) {
-                    ForEach(expensesViewModel.getDefaultCategories(), id: \.id) { expense in
+                    ForEach(expensesViewModel.fetchAllCategories(), id: \.id) { category in
                         Button {
-                            
+                            expensesViewModel.expenseType = category.name
                         } label: {
-                            CategoryButton(categoryImageName: expense.imageName, categoryName: expense.name)
+                            CategoryButton(categoryImageName: category.imageUrl, categoryName: category.name)
                         }
                     }
                 }
@@ -63,7 +63,7 @@ struct ExpensesView : View {
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                TextEditor(text: $expensesViewModel.note)
+                TextEditor(text: $expensesViewModel.expenseNote)
                     .padding(12)
                     .frame(height: 120)
                     .background(
@@ -77,7 +77,7 @@ struct ExpensesView : View {
                 Spacer()
                 
                 Button {
-                    // MARK: Add expensive on core data and how on categorie view
+                    expensesViewModel.addExpenseToCategory()
                 } label: {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(height: 60)
