@@ -27,8 +27,6 @@ final class CategoryRepository{
         let category = fetchCategory(by: categoryName)
         category?.addToExpenses(expense)
         saveContext()
-        
-        
     }
     
     private func initializeDefaultCategoriesIfNeeded() {
@@ -66,9 +64,17 @@ final class CategoryRepository{
         return categories
     }
     
-    private func fetchCategory(by name:String) -> CategoryEntity?{
+    public func fetchTotalExpensePerCategory(categoryName:String) -> Double{
+        let category = fetchCategory(by: categoryName)
+        let amountPerCategory = category?.expenses?.compactMap { $0 as? ExpenseEntity }.reduce(0.0) { partialResult, expenseEntity in
+            partialResult + expenseEntity.amount
+        } ?? 0.0
+        return amountPerCategory
+    }
+    
+    private func fetchCategory(by categoryName:String) -> CategoryEntity?{
         let request : NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "name ==[c] %@", name)
+        request.predicate = NSPredicate(format: "name ==[c] %@", categoryName)
         request.fetchLimit = 1
         
         do{

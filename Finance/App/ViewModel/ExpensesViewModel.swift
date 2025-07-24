@@ -9,8 +9,8 @@ import SwiftUI
 
 class ExpensesViewModel : ObservableObject{
     @Published var expenseAmount : String = ""
-    @Published var note : String = ""
-    @Published var name : String = ""
+    @Published var expenseNote : String = ""
+    @Published var expenseType : String = ""
     private var expenseRepository : ExpenseRepository = ExpenseRepository()
     private var categoryRepository : CategoryRepository = CategoryRepository()
     
@@ -26,9 +26,9 @@ class ExpensesViewModel : ObservableObject{
     }
     
     public func addExpenseToCategory() {
-        let expenseModel = Expense(note: self.note, amount: formatAndReturnExpenseAmount())
+        let expenseModel = Expense(note: self.expenseNote, amount: formatAndReturnExpenseAmount())
         let expenseEntity = expenseRepository.createExpenseEntity(expense: expenseModel)
-        categoryRepository.addExpense(to: self.name, expense: expenseEntity)
+        categoryRepository.addExpense(to: self.expenseType, expense: expenseEntity)
         clearViewData()
     }
     
@@ -38,8 +38,8 @@ class ExpensesViewModel : ObservableObject{
     
     private func clearViewData(){
         self.expenseAmount = ""
-        self.name = ""
-        self.note = ""
+        self.expenseType = ""
+        self.expenseNote = ""
     }
     
 }

@@ -51,7 +51,7 @@ struct ExpensesView : View {
                 LazyVGrid(columns: dataColumns, spacing: 16) {
                     ForEach(expensesViewModel.fetchAllCategories(), id: \.id) { category in
                         Button {
-                            expensesViewModel.name = category.name
+                            expensesViewModel.expenseType = category.name
                         } label: {
                             CategoryButton(categoryImageName: category.imageUrl, categoryName: category.name)
                         }
@@ -63,7 +63,7 @@ struct ExpensesView : View {
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                TextEditor(text: $expensesViewModel.note)
+                TextEditor(text: $expensesViewModel.expenseNote)
                     .padding(12)
                     .frame(height: 120)
                     .background(

@@ -14,10 +14,10 @@ struct Category{
     var expenses : [Expense] = []
     
     static let defaultCategories : [Category] = [
-        Category(name: "alimentação", imageUrl: "fork.knife.circle.fill"),
-        Category(name: "transporte", imageUrl: "house.fill"),
+        Category(name: "food", imageUrl: "fork.knife.circle.fill"),
+        Category(name: "transport", imageUrl: "house.fill"),
         Category(name: "shopping", imageUrl: "handbag.fill"),
-        Category(name: "casa", imageUrl: "house.fill"),
-        Category(name: "entreterimento", imageUrl: "popcorn.fill")
+        Category(name: "home", imageUrl: "house.fill"),
+        Category(name: "entertainment", imageUrl: "popcorn.fill")
     ]
 }
