@@ -26,14 +26,10 @@ class ExpensesViewModel : ObservableObject{
     }
     
     public func addExpenseToCategory() {
-        let expenseModel = Expense(note: self.expenseNote, amount: formatAndReturnExpenseAmount())
+        let expenseModel = Expense(note: self.expenseNote, amount: self.expenseAmount.toDouble())
         let expenseEntity = expenseRepository.createExpenseEntity(expense: expenseModel)
         categoryRepository.addExpense(to: self.expenseCategoryType, expense: expenseEntity)
         clearViewData()
-    }
-    
-    private func formatAndReturnExpenseAmount() -> Double {
-        return Double(self.expenseAmount.replacingOccurrences(of: ",", with: ".")) ?? 0.0
     }
     
     public func clearViewData(){
