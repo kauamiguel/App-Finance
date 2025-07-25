@@ -17,8 +17,8 @@ struct CategoryListButton : View {
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.gray, lineWidth: 3)
-                .frame(width: UIScreen.main.bounds.width * 0.8, height: 80)
+                .stroke(Color.gray, lineWidth: 1)
+                .frame(width: UIScreen.main.bounds.width * 0.9, height: 80)
                 .foregroundStyle(.white)
                 .padding(.vertical, 5)
                 .overlay {
@@ -30,6 +30,7 @@ struct CategoryListButton : View {
                         
                         VStack(alignment: .leading){
                             Text(name)
+                                .foregroundStyle(Color.black)
                                 .bold()
                                 .font(.system(size: 20))
                             
@@ -42,6 +43,7 @@ struct CategoryListButton : View {
                         
                         VStack (alignment: .center){
                             Text("R$\(expenseAmount)")
+                                .foregroundStyle(Color.black)
                                 .bold()
                             Text("This month")
                                 .foregroundStyle(.gray)

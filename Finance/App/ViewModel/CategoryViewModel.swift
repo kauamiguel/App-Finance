@@ -20,7 +20,12 @@ class CategoryViewModel : ObservableObject{
         }
     }
     
-    public func fetchExpensePerCategory(categoryName:String) -> Double {
+    public func fetchExpensePerCategoryName(categoryName:String) -> Double {
         return categoryRepository.fetchTotalExpensePerCategory(categoryName: categoryName)
     }
+    
+    public func countExpesesPerCategortName(categoryName:String) -> Int{
+        return categoryRepository.countTotalExpensePerCategory(categoryName: categoryName)
+    }
+    
 }

@@ -72,6 +72,11 @@ final class CategoryRepository{
         return amountPerCategory
     }
     
+    public func countTotalExpensePerCategory(categoryName:String) -> Int {
+        let category = fetchCategory(by: categoryName)
+        return category?.expenses?.count ?? 0
+    }
+    
     private func fetchCategory(by categoryName:String) -> CategoryEntity?{
         let request : NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
         request.predicate = NSPredicate(format: "name ==[c] %@", categoryName)
@@ -84,6 +89,7 @@ final class CategoryRepository{
             return nil
         }
     }
+    
     
     private func saveContext() {
         guard context.hasChanges else { return }

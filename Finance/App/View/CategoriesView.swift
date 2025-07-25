@@ -18,7 +18,7 @@ struct CategoriesView : View {
                     Button {
                         // Go to categories detail view
                     } label: {
-                        CategoryListButton(imageUrl: category.imageUrl, name: category.name, expenseAmount: 10, expenseCount: 20)
+                        CategoryListButton(imageUrl: category.imageUrl, name: category.name, expenseAmount: categoryViewModel.fetchExpensePerCategoryName(categoryName: category.name), expenseCount: categoryViewModel.countExpesesPerCategortName(categoryName: category.name))
                     }
                 }
             }
