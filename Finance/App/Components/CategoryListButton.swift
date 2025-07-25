@@ -24,6 +24,9 @@ struct CategoryListButton : View {
                 .overlay {
                     HStack{
                         Image(systemName: imageUrl)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 45, height: 45)
                             .foregroundStyle(Color.blue)
                             .font(.system(size: 40))
                             .padding(.horizontal,8)
