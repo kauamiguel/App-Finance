@@ -8,10 +8,29 @@
 import SwiftUI
 
 struct CategoriesView : View {
+    
+    @StateObject var categoryViewModel : CategoryViewModel
+    
     var body: some View {
-        VStack {
-            Text("Categories")
+        ScrollView{
+            VStack {
+                ForEach(categoryViewModel.fetchAllCategories(), id: \.id) { category in
+                    Button {
+                        // Go to categories detail view
+                    } label: {
+                        CategoryListButton(imageUrl: category.imageUrl, name: category.name, expenseAmount: 10, expenseCount: 20)
+                    }
+                }
+            }
+            .padding()
         }
-        .padding()
+        .onAppear(perform: {
+            UIScrollView.appearance().delaysContentTouches = false
+        })
     }
+}
+
+
+#Preview {
+    CategoriesView(categoryViewModel: CategoryViewModel())
 }

@@ -51,7 +51,7 @@ struct ExpensesView : View {
                         Button {
                             expensesViewModel.expenseCategoryType = category.name
                         } label: {
-                            CategoryButton(categoryImageName: category.imageUrl, categoryName: category.name, isSelected: category.name.lowercased() == expensesViewModel.expenseCategoryType.lowercased())
+                            CategoryTypeButton(categoryImageName: category.imageUrl, categoryName: category.name, isSelected: category.name.lowercased() == expensesViewModel.expenseCategoryType.lowercased())
                         }
                     }
                 }

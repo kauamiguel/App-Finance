@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategoryButton: View {
+struct CategoryTypeButton: View {
     var categoryImageName: String
     var categoryName: String
     var isSelected : Bool
@@ -30,6 +30,6 @@ struct CategoryButton: View {
             }
         }
         .frame(width: 100, height: 100)
-        .contentShape(Rectangle()) // ← garante área tocável
+        .contentShape(Rectangle()) 
     }
 }

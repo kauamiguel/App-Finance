@@ -16,7 +16,7 @@ struct TabBarContainer: View {
                         Label("Expenses", systemImage: "plus.circle.fill")
                     }
                 
-                CategoriesView()
+                CategoriesView(categoryViewModel: CategoryViewModel())
                     .tabItem {
                         Label("Categories", systemImage: "tag.fill")
                     }
