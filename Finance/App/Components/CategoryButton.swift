@@ -10,11 +10,12 @@ import SwiftUI
 struct CategoryButton: View {
     var categoryImageName: String
     var categoryName: String
+    var isSelected : Bool
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.gray, lineWidth: 2)
+                .stroke(isSelected ? Color.green.opacity(0.4) : Color.gray, lineWidth: 3)
                 .background(Color.white)
                 .cornerRadius(10)
 

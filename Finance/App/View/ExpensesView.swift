@@ -42,8 +42,6 @@ struct ExpensesView : View {
                 .frame(height: 50)
                 .padding(.horizontal)
                 
-                
-                
                 Text("Categorias")
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -51,9 +49,9 @@ struct ExpensesView : View {
                 LazyVGrid(columns: dataColumns, spacing: 16) {
                     ForEach(expensesViewModel.fetchAllCategories(), id: \.id) { category in
                         Button {
-                            expensesViewModel.expenseType = category.name
+                            expensesViewModel.expenseCategoryType = category.name
                         } label: {
-                            CategoryButton(categoryImageName: category.imageUrl, categoryName: category.name)
+                            CategoryButton(categoryImageName: category.imageUrl, categoryName: category.name, isSelected: category.name.lowercased() == expensesViewModel.expenseCategoryType.lowercased())
                         }
                     }
                 }
@@ -94,6 +92,9 @@ struct ExpensesView : View {
         .onAppear(perform: {
             UIScrollView.appearance().delaysContentTouches = false
         })
+        .onDisappear {
+            expensesViewModel.clearViewData()
+        }
     }
 }
 
